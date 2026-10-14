@@ -41,6 +41,19 @@ Requires Java 17+. The Maven wrapper downloads Maven on first use.
 ./mvnw spring-boot:run  # starts on :8080 (no providers unless WeChat Pay is configured)
 ```
 
+### See it run: local demo
+
+```bash
+scripts/demo.sh   # needs curl + jq; PAUSE=0 to skip pauses
+```
+
+Starts a local WeChat Pay simulator (`src/test/java/.../demo/WeChatPaySimulator.java`) and the
+platform, then drives the API with curl. It shows each request and response next to what the WeChat
+Pay side logged, and checks the result at each step: create → forged notification rejected → customer
+pays → notification → `SUCCEEDED` → duplicate notification → refresh with a lost notification →
+cancel → validation error. The simulator checks the platform's request signatures, signs its own
+responses, and sends encrypted notifications. It uses throwaway keys written to `target/demo/`.
+
 The tests need no WeChat Pay account. `PaymentFlowIntegrationTest` runs the full flow through the real
 Spring context with WireMock acting as WeChat Pay: it checks request signatures, signs its responses,
 and sends encrypted notifications, as WeChat Pay does.
