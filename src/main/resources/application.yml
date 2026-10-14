@@ -1,0 +1,25 @@
+server:
+  port: ${PORT:8080}
+
+spring:
+  application:
+    name: wechatpay-v3-poc
+  jackson:
+    default-property-inclusion: non_null
+
+payments:
+  # How long a customer has to complete a payment before the provider expires it.
+  expiry: PT30M
+
+# WeChat Pay adapter. Disabled unless WECHATPAY_ENABLED=true and merchant credentials are provided.
+wechatpay:
+  enabled: ${WECHATPAY_ENABLED:false}
+  base-url: ${WECHATPAY_BASE_URL:https://api.mch.weixin.qq.com}
+  mch-id: ${WECHATPAY_MCH_ID:}
+  app-id: ${WECHATPAY_APP_ID:}
+  merchant-serial-number: ${WECHATPAY_MERCHANT_SERIAL_NUMBER:}
+  merchant-private-key-path: ${WECHATPAY_MERCHANT_PRIVATE_KEY_PATH:}
+  api-v3-key: ${WECHATPAY_API_V3_KEY:}
+  platform-public-key-id: ${WECHATPAY_PLATFORM_PUBLIC_KEY_ID:}
+  platform-public-key-path: ${WECHATPAY_PLATFORM_PUBLIC_KEY_PATH:}
+  notify-url: ${WECHATPAY_NOTIFY_URL:}
